@@ -1,0 +1,14 @@
+{
+  "name": "market-intelligence-marketplace",
+  "description": "Toolkit público de inteligência de mercado para Claude Code",
+  "owner": {
+    "name": "Market Intelligence Team"
+  },
+  "plugins": [
+    {
+      "name": "market-intelligence",
+      "source": "./plugins/market-intelligence",
+      "description": "Skills e agentes de análise sobre Power BI via MCP existente"
+    }
+  ]
+}
