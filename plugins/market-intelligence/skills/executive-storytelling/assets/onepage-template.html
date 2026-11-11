@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{DOCUMENT_TITLE}}</title>
+<style>
+:root{--ink:#172b40;--muted:#53677b;--line:#dae3eb;--bg:#f4f7fa;--panel:#fff;--accent:#176f89;--pale:#eaf3f6;--warn:#8d4c15}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--ink);font-size:11px;line-height:1.35}
+.sheet{max-width:1120px;margin:18px auto;background:var(--panel);padding:24px 28px;border:1px solid var(--line);box-shadow:0 8px 32px #172b4010}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:18px}.eyebrow{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:bold}
+h1{font-size:23px;line-height:1.18;letter-spacing:-.02em;margin:8px 0 6px;font-weight:700;max-width:780px}
+.subtitle{color:var(--muted);font-size:11px;margin:0}
+.flag{display:inline-block;border:1px solid #d8a780;background:#fff5ed;color:var(--warn);padding:7px 9px;border-radius:5px;font-size:9px;letter-spacing:.03em;font-weight:bold;text-align:center;max-width:220px}
+.rule{height:2px;background:var(--accent);margin:16px 0}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.kpi{background:var(--bg);border:1px solid var(--line);padding:12px;min-height:75px;border-radius:6px}.kpi .value{font-size:22px;line-height:1;font-weight:700;margin:4px 0}.kpi .name{color:var(--muted);font-size:10px}.kpi .foot{color:var(--muted);font-size:9px}
+.main{display:grid;grid-template-columns:1.25fr 1fr;gap:12px;margin-top:12px}.panel{border:1px solid var(--line);border-radius:6px;padding:12px;min-width:0}h2{font-size:11px;letter-spacing:.07em;text-transform:uppercase;margin:0 0 10px;color:var(--accent)}
+ul{margin:0;padding-left:18px}li{margin:0 0 8px}li:last-child{margin-bottom:0}.muted{color:var(--muted)}.tag{font-size:9px;font-weight:bold;display:inline-block;color:var(--accent);background:var(--pale);border-radius:4px;padding:3px 5px;margin-right:6px}
+.bottom{display:grid;grid-template-columns:1.25fr 1fr;gap:12px;margin-top:12px}.action{padding:7px 0;border-bottom:1px solid var(--line)}.action:last-child{border-bottom:none;padding-bottom:0}
+.perspective{display:grid;grid-template-columns:1fr;gap:6px}.perspective div{border-left:2px solid var(--accent);padding-left:8px}
+footer{border-top:1px solid var(--line);margin-top:14px;padding-top:8px;color:var(--muted);font-size:9px;display:flex;justify-content:space-between;gap:14px}
+@page{size:A4 landscape;margin:9mm}
+@media print{body{background:white}.sheet{width:100%;max-width:none;margin:0;padding:0;border:0;box-shadow:none}html{-webkit-print-color-adjust:exact;print-color-adjust:exact}h1{font-size:21px}.panel,.kpi{break-inside:avoid}footer{margin-top:9px}}
+@media (max-width:720px){.sheet{margin:0;padding:18px;border:0}.top{display:block}.flag{margin-top:8px;max-width:none}.kpis{grid-template-columns:1fr}.main,.bottom{grid-template-columns:1fr}h1{font-size:20px}footer{display:block}}
+</style>
+</head>
+<body>
+<main class="sheet">
+<header class="top">
+  <div><div class="eyebrow">INTELIGÊNCIA DE DESEMPENHO · ONEPAGE</div>
+    <h1>{{HEADLINE}}</h1><p class="subtitle">{{QUESTION_AND_SCOPE}}</p>
+  </div><div class="flag">{{CONFIDENCE_LABEL}}</div>
+</header>
+<div class="rule"></div>
+<section class="kpis">
+  <div class="kpi"><div class="name">{{KPI_1_LABEL}}</div><div class="value">{{KPI_1_VALUE}}</div><div class="foot">{{KPI_1_CONTEXT}}</div></div>
+  <div class="kpi"><div class="name">{{KPI_2_LABEL}}</div><div class="value">{{KPI_2_VALUE}}</div><div class="foot">{{KPI_2_CONTEXT}}</div></div>
+  <div class="kpi"><div class="name">{{KPI_3_LABEL}}</div><div class="value">{{KPI_3_VALUE}}</div><div class="foot">{{KPI_3_CONTEXT}}</div></div>
+</section>
+<section class="main">
+  <div class="panel"><h2>Diagnóstico | O que observamos</h2><ul>
+    <li>{{FINDING_1}}</li><li>{{FINDING_2}}</li><li>{{FINDING_3}}</li>
+  </ul></div>
+  <div class="panel"><h2>Hipóteses | O que verificar</h2><ul>
+    <li><span class="tag">HIPÓTESE</span>{{HYPOTHESIS_1}}</li>
+    <li><span class="tag">HIPÓTESE</span>{{HYPOTHESIS_2}}</li>
+  </ul><p class="muted">{{MISSING_EVIDENCE}}</p></div>
+</section>
+<section class="bottom">
+  <div class="panel"><h2>Direcionamento | Próximas ações</h2>
+    <div class="action"><b>1.</b> {{ACTION_1}}</div>
+    <div class="action"><b>2.</b> {{ACTION_2}}</div>
+    <div class="action"><b>3.</b> {{ACTION_3}}</div>
+  </div>
+  <div class="panel"><h2>Implicações por nível</h2>
+    <div class="perspective">
+      <div><b>Diretoria</b> · {{EXECUTIVE_LENS}}</div>
+      <div><b>Gerência</b> · {{MANAGER_LENS}}</div>
+      <div><b>Coordenação</b> · {{OPERATIONS_LENS}}</div>
+    </div>
+  </div>
+</section>
+<footer><div>{{SOURCE_PERIOD_LIMITS}}</div><div>{{CONFIDENTIALITY_FOOTNOTE}}</div></footer>
+</main>
+</body>
+</html>
