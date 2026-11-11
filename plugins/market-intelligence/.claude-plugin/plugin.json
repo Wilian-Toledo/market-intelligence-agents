@@ -1,16 +1,16 @@
 {
   "name": "market-intelligence",
   "displayName": "Market Intelligence Agents",
-  "version": "0.1.0",
-  "description": "Toolkit modular: fase 1 mapeamento de modelo semântico via Power BI MCP existente",
+  "version": "0.2.0",
+  "description": "Skills e agentes modulares para mapeamento e validação semântica de indicadores; contexto específico permanece local.",
   "author": {
     "name": "Market Intelligence Team"
   },
   "keywords": [
-    "power-bi",
     "semantic-model",
     "market-intelligence",
-    "dax",
-    "insurance"
+    "kpi-validation",
+    "power-bi",
+    "evidence-based-analytics"
   ]
 }
