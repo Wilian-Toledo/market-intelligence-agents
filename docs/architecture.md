@@ -1,25 +1,27 @@
-# Arquitetura de Market Intelligence Agents
+# Arquitetura
 
-## Fluxo desejado
-Power BI (MCP preexistente) → Inventário confiável → Diagnóstico quantitativo → Investigação de hipóteses → Priorização econômico-comercial → Revisão crítica → Storytelling executivo/OnePage.
+```text
+Fontes autorizadas / MCP existente
+    -> Inventário do modelo (Model Cartographer)
+    -> Contratos e status de KPIs (Semantic Validator)
+    -> Diagnóstico (planejado)
+    -> Investigação e priorização (planejados)
+    -> Revisão crítica (planejada)
+    -> Storytelling e OnePage (planejados)
+```
 
-## Papéis
-- **MCP:** acesso de leitura ao modelo Power BI já aberto. Fora do plugin; não reconfigurar.
-- **Agentes:** tarefas cognitivas especializadas e delimitadas.
-- **Skills:** metodologia analítica, regras de cálculo, verificações e critérios de aceitação.
-- **Contratos:** outputs estruturados e rastreabilidade de fonte, indicador, período e filtro.
-- **Orquestração:** Claude Code, evitando agentes redundantes.
+## Separação de responsabilidades
+1. **Especialistas reutilizáveis:** agentes e skills descrevem procedimentos de auditoria, estatística, comparabilidade, priorização e narrativa. Não conhecem marcas, setores, medidas ou regras locais por padrão.
+2. **Contexto do projeto:** dados, objetivos, métricas específicas, glossário, decisões de negócio e evidências vivem apenas no ambiente autorizado.
+3. **Contratos:** cada KPI descreve origem, população, unidade, janela, filtros, evidência, estado e uso permitido. Mudanças de negócio alteram contratos e testes afetados, não o método genérico.
+4. **Portões de qualidade:** rejeitar ou bloquear indicadores com falhas; permitir exploração sinalizada quando evidência técnica existe mas definição de negócio ainda está pendente.
+5. **Ferramentas:** consultas agregadas e leitura via MCP já configurado. Scripts de verificação podem ser usados se runtime for permitido; não são exigência para o workflow.
 
-## Guardrails
-1. Dados específicos e relatórios ficam exclusivamente em diretórios locais autorizados.
-2. Nenhum número sem indicador, período, população, unidade, fonte, filtros e evidência.
-3. Diferenciar fatos, hipóteses, causas validadas e recomendações.
-4. Não atribuir causa sem evidência nem propor crescimento desconsiderando sinistralidade, custo e margem.
-5. Só realizar projeções após avaliar histórico, sazonalidade, backtesting e incerteza.
-6. Perspectivas de diretoria, gerência e coordenação serão skill, não agentes redundantes.
+## Limitações intencionais
+- Nenhuma alteração automática no PBIX, relações, medidas, fontes ou refresh.
+- Nenhum diagnóstico causal sem teste de hipótese.
+- Nenhuma recomendação de investimento com base apenas em share ou crescimento.
+- Nenhuma projeção sem condições mínimas de histórico e comparação.
+- Nenhum dado ou metadata corporativa no repositório público.
 
-## Módulos
-- **Implementado:** `model-cartographer` (mapa semântico).
-- **Planejados:** `market-diagnostician`, `hypothesis-investigator`, `opportunity-strategist`, `challenge-reviewer`, `executive-storyteller`.
-
-Adicionaremos cada módulo somente após validar a qualidade da etapa anterior.
+Status: v0.2 contém apenas mapeamento e validação semântica. O restante está no roadmap.
