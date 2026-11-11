@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PowerBI Semantic Audit Summary",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "model",
+    "audit_status",
+    "tables_count",
+    "measures_count",
+    "relationships_count",
+    "limitations"
+  ],
+  "properties": {
+    "model": {
+      "type": "string"
+    },
+    "audit_status": {
+      "enum": [
+        "complete",
+        "partial",
+        "blocked"
+      ]
+    },
+    "tables_count": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "measures_count": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "relationships_count": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "kpi_families": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "open_business_questions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "report_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
