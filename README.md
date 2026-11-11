@@ -1,44 +1,42 @@
 # Market Intelligence Agents
 
-Toolkit modular de **agentes e skills para Claude Code**, orientado a diagnósticos quantitativos, confiabilidade de KPIs e decisões baseadas em evidências. O núcleo é **reutilizável entre projetos, setores e modelos**; regras de negócio e evidências pertencem ao ambiente local do usuário.
+Toolkit público de **agentes e skills para Claude Code**, com especialistas reutilizáveis em governança de KPIs e diagnósticos de desempenho. Cada projeto fornece seu **contexto local**: métricas, definições, recortes, evidências e perguntas de negócio. As skills não contêm nomes de empresas, medidas proprietárias nem limiares específicos.
 
-## v0.2.0 — o que está disponível
-- Subagente `model-cartographer` e skills `/mapear-modelo`, `powerbi-semantic-audit` (inventário Power BI via MCP já instalado).
-- **Novo:** `/validar-indicadores` e `semantic-validator` — selecionam KPIs úteis, verificam consistência, classificam confiabilidade e geram contratos locais.
-- **Novo:** schema e verificador opcional (Python stdlib) empacotados dentro da própria skill, além de exemplos/testes sintéticos.
-- Não inclui agente de diagnóstico ou OnePage nesta versão; consulte `docs/roadmap.md`.
+## v0.3.0 — módulos disponíveis
+1. `model-cartographer` + `/mapear-modelo`: inventário e auditoria técnica de modelo semântico Power BI via MCP **já existente**.
+2. `semantic-validator` + `/validar-indicadores`: contratos de KPIs e classificação de confiabilidade.
+3. **Novo:** `market-diagnostician` + `performance-diagnostics` + `/diagnosticar-desempenho`: análise de crescimento, desvios, recortes, comparações coerentes e **rascunho exploratório de OnePage**.
 
-## Instalação ou atualização sem PowerShell
-Como `/plugin` pode estar indisponível, peça ao **Claude Code no projeto autorizado**:
+> Com **zero indicadores aprovados**, o diagnóstico é obrigatoriamente **exploratório**, com evidências e ressalvas. Não equivale a recomendação executiva nem prova retorno financeiro.
 
-> Atualize somente as skills a partir de https://github.com/Wilian-Toledo/market-intelligence-agents . Use git clone em uma pasta temporária (ou ZIP baixado), leia `docs/upgrade-v0.2.md`, compare as pastas antes de copiar e instale `semantic-validator` e `validar-indicadores` em `.claude/skills/` do projeto. Preserve MCP, settings, arquivos locais, agentes existentes e relatórios. Não execute PowerShell, não faça commit ou push. Se houver conflito, solicite confirmação.
+## Atualização no Claude Code sem PowerShell
+Se a versão 0.2 já foi instalada, use o **prompt pronto** em [docs/upgrade-v0.3.md](docs/upgrade-v0.3.md). Ele copia somente o agente e as duas skills novas para `.claude/`, preservando MCP, configurações e relatórios anteriores. Após reiniciar a sessão (se necessário), execute `/diagnosticar-desempenho`.
 
-Depois reinicie a sessão do Claude Code se necessário e use **`/validar-indicadores`**. A auditoria anterior permanece em `reports/powerbi-model-audit/`; o validador escreve em `reports/semantic-validation/` (ambos fora do Git).
-
-Detalhes: `docs/upgrade-v0.2.md` e `docs/installation-without-plugin.md`.
+Se ainda não instalou nenhuma versão, veja [docs/installation-without-plugin.md](docs/installation-without-plugin.md). Você pode usar `git clone` em pasta temporária ou baixar o ZIP no navegador. Não precisa executar PowerShell.
 
 ## Estrutura
 ```text
 plugins/market-intelligence/
-  agents/model-cartographer.md
-  skills/mapear-modelo/SKILL.md
-  skills/powerbi-semantic-audit/SKILL.md
-  skills/validar-indicadores/SKILL.md
-  skills/semantic-validator/
-    SKILL.md
-    references/kpi-contract.schema.json
-    scripts/check_contract.py
-    examples/synthetic-catalog.json
-contracts/audit-summary.schema.json
-tests/test_contract.py
+  agents/
+    model-cartographer.md
+    market-diagnostician.md
+  skills/
+    mapear-modelo/SKILL.md
+    powerbi-semantic-audit/SKILL.md
+    validar-indicadores/SKILL.md
+    semantic-validator/{SKILL.md,references/,scripts/,examples/}
+    diagnosticar-desempenho/SKILL.md
+    performance-diagnostics/{SKILL.md,references/,scripts/,examples/}
+tests/
 docs/
 ```
 
-## Regras de qualidade
-- Nenhuma conclusão executiva categórica com KPI sem definição de negócio e validação técnica.
-- Indicadores provisórios/restritos servem para **exploração sinalizada**; reprovados/bloqueados não podem sustentar recomendações.
-- Crescimento YoY e sequencial possuem janelas explicitamente diferentes; medidas não devem ser misturadas.
-- Projeto genérico no GitHub, **contexto de negócio e evidências específicas somente no ambiente autorizado**.
+## Política de dados e confiabilidade
+- **Nenhum dado real, DAX interno, PBIX, credencial, metadado proprietário ou relatório local** deve ser enviado ao GitHub público.
+- Cada achado referencia o ID de KPI, janela, recorte, evidência e limitações, permitindo reanálise após mudança de regras.
+- KPIs `rejected`/`blocked` não podem fundamentar achados; `restricted` exigem recorte comprovadamente compatível.
+- Projeções, explicações causais e priorização de investimentos são módulos posteriores, não incluídos na v0.3.
+- O toolkit nunca altera PBIX, medidas, fontes, RLS, refresh ou configuração do MCP.
 
-## Segurança
-Repositório **público**. Não publicar PBIX, dados, DAX internos, nomes de colaboradores/clientes, credenciais, contextos proprietários ou relatórios locais. Qualquer consulta MCP deve ser estritamente somente leitura, quando autorizada. O toolkit não modifica PBIX, medidas, RLS, refresh nem configuração do MCP.
+## Estado de validação
+Os **arquivos publicados** são conferidos no GitHub. Há testes sintéticos de contratos; o novo agente deve ser testado no Claude Code local sobre dados autorizados antes de qualquer utilização real.
