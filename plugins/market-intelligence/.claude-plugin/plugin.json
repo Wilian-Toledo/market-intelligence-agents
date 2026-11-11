@@ -1,8 +1,8 @@
 {
   "name": "market-intelligence",
   "displayName": "Market Intelligence Agents",
-  "version": "0.2.0",
-  "description": "Skills e agentes modulares para mapeamento e validação semântica de indicadores; contexto específico permanece local.",
+  "version": "0.3.0",
+  "description": "Toolkit reutilizável: mapeamento, validação semântica e diagnóstico exploratório orientado por KPIs confiáveis.",
   "author": {
     "name": "Market Intelligence Team"
   },
@@ -10,7 +10,7 @@
     "semantic-model",
     "market-intelligence",
     "kpi-validation",
-    "power-bi",
-    "evidence-based-analytics"
+    "performance-diagnostics",
+    "power-bi"
   ]
 }
