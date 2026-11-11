@@ -1,17 +1,21 @@
-# Roadmap — implementação incremental
+# Roadmap — entregas incrementais
 
 | Etapa | Entrega | Estado |
 |---|---|---|
-| 0 | Repositório, organização de plugins e instalação alternativa | Disponível |
-| 1 | Model Cartographer + mapeamento Power BI via MCP | Disponível; testado localmente pelo usuário, sem verificação remota |
-| 1.5 | **Semantic Validator** + contrato genérico de KPIs + checagens | **v0.2 disponível; aguarda validação no projeto do usuário** |
-| 2 | Market Diagnostician: evolução, participação, comparações, decomposição de desvios | Planejado |
-| 3 | Investigação de hipóteses e evidências independentes | Planejado |
-| 4 | Priorização: potencial, esforço, capacidade e riscos econômicos | Planejado |
-| 5 | Revisão crítica, narrativa e OnePage por público gerencial | Planejado |
+| 0 | Organização do toolkit, instalação alternativa | Disponível |
+| 1 | Model Cartographer + auditoria Power BI | Disponível; usado pelo usuário no ambiente local |
+| 1.5 | Semantic Validator + catálogo de KPIs | Disponível; executado pelo usuário, sem validação de negócio confirmada |
+| 2 | **Market Diagnostician + performance-diagnostics** | **v0.3 publicada; aguardando teste local** |
+| 3 | Investigação de hipóteses e alternativas explicativas | Planejado |
+| 4 | Priorização por potencial, esforço, risco e economia | Planejado |
+| 5 | Revisão crítica e OnePage executiva por público | Planejado |
 
-## Critério para iniciar diagnóstico
-Não é necessário corrigir todas as medidas: basta **um subconjunto útil de indicadores tecnicamente coerentes**, com limites semânticos explícitos, e aprovação para uso exploratório. Indicadores provisórios não sustentam decisões definitivas.
+## Gate do diagnóstico
+- Exigir catálogo local de KPIs com status e usos.
+- Indicadores `approved` podem sustentar conclusões dentro do escopo aprovado.
+- Indicadores `provisional` e `restricted` somente em **diagnóstico exploratório**, com limitações, recorte e evidência.
+- `rejected` e `blocked` ficam excluídos.
+- Não usar crescimento ou share como sinônimo de margem, retorno ou causalidade.
 
-## Princípio de portabilidade
-Agentes e skills contêm método, jamais nomes de empresa, nomes de tabelas, medidas fixas, portas, paths corporativos ou thresholds proprietários. Contextos, objetivos, decisões de negócio e contratos preenchidos ficam no projeto autorizado, fora do Git.
+## Reutilização
+O método é portátil; apenas os contratos e os arquivos de contexto locais mudam a cada projeto. Não colocar regras ou nomes proprietários nos agentes públicos.
