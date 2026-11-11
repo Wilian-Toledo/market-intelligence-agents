@@ -1,0 +1,16 @@
+{
+  "name": "market-intelligence",
+  "displayName": "Market Intelligence Agents",
+  "version": "0.1.0",
+  "description": "Toolkit modular: fase 1 mapeamento de modelo semântico via Power BI MCP existente",
+  "author": {
+    "name": "Market Intelligence Team"
+  },
+  "keywords": [
+    "power-bi",
+    "semantic-model",
+    "market-intelligence",
+    "dax",
+    "insurance"
+  ]
+}
