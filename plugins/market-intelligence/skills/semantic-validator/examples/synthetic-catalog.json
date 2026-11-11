@@ -1,0 +1,78 @@
+{
+  "schema_version": "0.2",
+  "analysis_question": "Comparar crescimento sintético em janelas equivalentes",
+  "model_reference": "modelo-sintetico",
+  "indicators": [
+    {
+      "id": "metric-growth-yoy",
+      "name": "Crescimento ilustrativo YoY",
+      "status": "provisional",
+      "technical_validation": "verified",
+      "business_validation": "pending",
+      "unit": "%",
+      "scope": {
+        "granularity": "mês",
+        "period": "2026-04 a 2026-06",
+        "population": "amostra fictícia",
+        "filters": []
+      },
+      "lineage": [
+        "testes-sinteticos/métrica-base"
+      ],
+      "evidence": [
+        {
+          "test": "Recomposição agregada fictícia",
+          "result": "passed",
+          "reference": "exemplo-local/teste-01"
+        }
+      ],
+      "restrictions": [],
+      "blockers": [],
+      "allowed_uses": [
+        "exploratory"
+      ],
+      "comparison": {
+        "kind": "yoy",
+        "current_start": "2026-04",
+        "current_end": "2026-06",
+        "reference_start": "2025-04",
+        "reference_end": "2025-06"
+      }
+    },
+    {
+      "id": "metric-share-bad",
+      "name": "Razão tautológica fictícia",
+      "status": "rejected",
+      "technical_validation": "failed",
+      "business_validation": "pending",
+      "unit": "%",
+      "scope": {
+        "granularity": "mês",
+        "period": "janela de 12 meses",
+        "population": "amostra fictícia",
+        "filters": []
+      },
+      "lineage": [
+        "testes-sinteticos/razão"
+      ],
+      "evidence": [
+        {
+          "test": "Numerador idêntico ao denominador",
+          "result": "failed",
+          "reference": "exemplo-local/teste-02"
+        }
+      ],
+      "restrictions": [],
+      "blockers": [
+        "Tautologia identificada"
+      ],
+      "allowed_uses": [],
+      "ratio_checks": {
+        "period_alignment": "passed",
+        "unit_alignment": "passed",
+        "population_alignment": "failed",
+        "filter_isolation": "unknown"
+      }
+    }
+  ]
+}
