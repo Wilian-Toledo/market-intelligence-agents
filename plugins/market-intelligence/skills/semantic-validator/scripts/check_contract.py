@@ -93,7 +93,7 @@ def validate_catalog(data):
         if not isinstance(blockers, list):
             errors.append(f"{p}: blockers deve ser lista.")
             blockers = []
-        if not isinstance(uses, list) or any(u not in USES for u in uses) or len(uses) != len(set(uses)):
+        if not isinstance(uses, list) or any(not isinstance(u, str) or u not in USES for u in uses) or len(uses) != len(set(uses)):
             errors.append(f"{p}: allowed_uses inválido.")
             uses = []
         expected = {
@@ -134,16 +134,18 @@ def validate_catalog(data):
                 else:
                     cs, ce, rs, re_ = dates
                     if ce < cs or re_ < rs or (ce - cs) != (re_ - rs):
-                        errors.append(f"{p}: janelas comparadas têm durações diferentes ou inversão.")
+                        errors.append(f"{p}: janelas comparadas têm durações diferentes ou inversão.") if status != "rejected" else None
                     elif comparison["kind"] == "yoy" and (cs-rs != 12 or ce-re_ != 12):
-                        errors.append(f"{p}: yoy exige mesma janela deslocada exatamente 12 meses.")
+                        errors.append(f"{p}: yoy exige mesma janela deslocada exatamente 12 meses.") if status != "rejected" else None
                     elif comparison["kind"] == "sequential" and re_ != cs-1:
-                        errors.append(f"{p}: sequential exige janela imediatamente anterior.")
+                        errors.append(f"{p}: sequential exige janela imediatamente anterior.") if status != "rejected" else None
         ratio = item.get("ratio_checks")
         if ratio is not None:
             keys = ("period_alignment", "unit_alignment", "population_alignment", "filter_isolation")
             if not isinstance(ratio, dict) or any(ratio.get(k) not in CHECK_STATES for k in keys):
                 errors.append(f"{p}: ratio_checks incompleto.")
+            elif any(ratio[k] == "failed" for k in keys) and status != "rejected":
+                errors.append(f"{p}: razão com checagem reprovada exige status rejected.")
             elif status == "approved" and any(ratio[k] != "passed" for k in keys):
                 errors.append(f"{p}: razão com alinhamento não confirmado não pode ser approved.")
     return errors
