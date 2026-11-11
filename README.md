@@ -1,42 +1,63 @@
 # Market Intelligence Agents
 
-Toolkit público de **agentes e skills para Claude Code**, com especialistas reutilizáveis em governança de KPIs e diagnósticos de desempenho. Cada projeto fornece seu **contexto local**: métricas, definições, recortes, evidências e perguntas de negócio. As skills não contêm nomes de empresas, medidas proprietárias nem limiares específicos.
+**MVP completo v1.0.0 — Claude Code.** Toolkit de especialistas reutilizáveis para transformar dados analíticos em diagnóstico, hipóteses, prioridades, revisão crítica e uma OnePage visual.
 
-## v0.3.0 — módulos disponíveis
-1. `model-cartographer` + `/mapear-modelo`: inventário e auditoria técnica de modelo semântico Power BI via MCP **já existente**.
-2. `semantic-validator` + `/validar-indicadores`: contratos de KPIs e classificação de confiabilidade.
-3. **Novo:** `market-diagnostician` + `performance-diagnostics` + `/diagnosticar-desempenho`: análise de crescimento, desvios, recortes, comparações coerentes e **rascunho exploratório de OnePage**.
+> O método é genérico. Cada projeto mantém **seus próprios KPIs, dimensões, objetivos, evidências e regras de negócio localmente**. Nenhum contexto corporativo entra neste GitHub público.
 
-> Com **zero indicadores aprovados**, o diagnóstico é obrigatoriamente **exploratório**, com evidências e ressalvas. Não equivale a recomendação executiva nem prova retorno financeiro.
+## Uma instalação → um comando
 
-## Atualização no Claude Code sem PowerShell
-Se a versão 0.2 já foi instalada, use o **prompt pronto** em [docs/upgrade-v0.3.md](docs/upgrade-v0.3.md). Ele copia somente o agente e as duas skills novas para `.claude/`, preservando MCP, configurações e relatórios anteriores. Após reiniciar a sessão (se necessário), execute `/diagnosticar-desempenho`.
+Se você já instalou a v0.3, siga [docs/upgrade-v1.0.md](docs/upgrade-v1.0.md) para instalar **somente os módulos novos** por clone ou ZIP, sem PowerShell.
 
-Se ainda não instalou nenhuma versão, veja [docs/installation-without-plugin.md](docs/installation-without-plugin.md). Você pode usar `git clone` em pasta temporária ou baixar o ZIP no navegador. Não precisa executar PowerShell.
+Depois, em uma sessão local do Claude Code:
 
-## Estrutura
 ```text
-plugins/market-intelligence/
-  agents/
-    model-cartographer.md
-    market-diagnostician.md
-  skills/
-    mapear-modelo/SKILL.md
-    powerbi-semantic-audit/SKILL.md
-    validar-indicadores/SKILL.md
-    semantic-validator/{SKILL.md,references/,scripts/,examples/}
-    diagnosticar-desempenho/SKILL.md
-    performance-diagnostics/{SKILL.md,references/,scripts/,examples/}
-tests/
-docs/
+/gerar-onepage
 ```
 
-## Política de dados e confiabilidade
-- **Nenhum dado real, DAX interno, PBIX, credencial, metadado proprietário ou relatório local** deve ser enviado ao GitHub público.
-- Cada achado referencia o ID de KPI, janela, recorte, evidência e limitações, permitindo reanálise após mudança de regras.
-- KPIs `rejected`/`blocked` não podem fundamentar achados; `restricted` exigem recorte comprovadamente compatível.
-- Projeções, explicações causais e priorização de investimentos são módulos posteriores, não incluídos na v0.3.
-- O toolkit nunca altera PBIX, medidas, fontes, RLS, refresh ou configuração do MCP.
+Opcionalmente passe uma pergunta:
 
-## Estado de validação
-Os **arquivos publicados** são conferidos no GitHub. Há testes sintéticos de contratos; o novo agente deve ser testado no Claude Code local sobre dados autorizados antes de qualquer utilização real.
+```text
+/gerar-onepage Onde estão os principais desvios de crescimento, quais hipóteses testar e o que priorizar?
+```
+
+O orquestrador reusa auditoria, contratos e diagnóstico local **sem recalcular tudo**; se alguma etapa estiver faltando, tenta executá-la na mesma chamada. Trabalha em leitura apenas, sem modificar PBIX ou MCP.
+
+## Especialistas disponíveis
+
+| Módulo | Responsabilidade |
+|---|---|
+| `model-cartographer` | Mapa semântico e auditoria |
+| `semantic-validator` (skill) | Contratos de KPIs e estados de uso |
+| `market-diagnostician` | Diagnóstico quantitativo |
+| `hypothesis-investigator` | Explicações concorrentes e testes |
+| `opportunity-strategist` | Priorização condicional por benefício, esforço e risco |
+| `challenge-reviewer` | Revisão crítica e bloqueio de afirmações frágeis |
+| `executive-storyteller` | Narrativa e OnePage para níveis gerenciais |
+
+**Comando principal:** `/gerar-onepage`, que coordena esses módulos. As skills antigas permanecem utilizáveis individualmente.
+
+## Saídas do MVP (somente local)
+```text
+reports/market-intelligence/
+  01-diagnostico-base.md
+  02-hipoteses.md
+  03-prioridades.md
+  04-revisao-critica.md
+  05-manifesto.md
+  onepage.md
+  onepage.html
+```
+
+Abra `onepage.html` localmente no navegador para visualizar e, se permitido, imprimir como PDF. O template é responsivo, HTML/CSS estático, sem bibliotecas ou imagens externas.
+
+## Limites de confiança
+- Sem definições de negócio confirmadas, qualquer OnePage permanece marcada como **EXPLORATÓRIA — NÃO VALIDADA PARA DECISÃO EXECUTIVA**.
+- Indicadores reprovados ou bloqueados são excluídos; indicadores restritos exigem recorte comprovadamente compatível.
+- Hipóteses são **hipóteses**, não causas comprovadas. Não inventamos ROI, margem, potencial financeiro, sinistralidade comparável nem projeções.
+- A prioridade inicial pode ser **investigar/validar/experimentar**, em vez de recomendar investimento.
+- Nunca publicamos dados, PBIX, DAX interno, credenciais ou relatórios no GitHub público.
+
+## Segurança / implantação
+Use somente ambiente e fontes autorizados pela organização. O toolkit não altera medidas, PBIX, RLS, refresh, modelo, credenciais, configurações ou MCP. Não executa PowerShell por padrão. Não exige Python: verificadores automáticos são opcionais.
+
+**Estado:** os arquivos são versionados e podem ser revisados publicamente. A integração completa no Claude Code + Power BI do usuário ainda precisa de teste local.
