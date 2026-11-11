@@ -1,42 +1,24 @@
-# Instalação nativa sem `/plugin`
+# Instalação sem `/plugin` e sem PowerShell
 
-O comando `/plugin` pode estar indisponível em determinadas superfícies do Claude. Isso não impede a instalação em **Claude Code local (CLI/IDE)** via `.claude/agents/` e `.claude/skills/`.
+Esta é a via recomendada quando o Claude Code roda em Windows com políticas corporativas que bloqueiam PowerShell, mas permitem acesso aos arquivos do projeto.
 
-## Pré-requisitos
-- PowerShell/Windows e Git instalado para a opção de clonagem.
-- Diretório local do projeto onde o MCP do Power BI já está configurado.
-- Permissão de TI/segurança para o uso deste repositório público e para processar metadados no serviço de IA.
+## Requisitos
+- Claude Code local com acesso à pasta do projeto.
+- Acesso ao GitHub pelo terminal **se permitido**; caso contrário, baixe o ZIP pelo navegador.
+- Permissão da organização para consumir este repositório público. Não exporte dados internos para o GitHub.
 
-## Um comando no terminal PowerShell
-Abra o terminal **dentro do projeto existente** e execute:
+## Instalação via Claude Code
+Abra o projeto no Claude Code e peça:
 
-```powershell
-$dest = Join-Path $env:TEMP ('market-intelligence-' + [guid]::NewGuid().ToString('N')); git clone --depth 1 https://github.com/Wilian-Toledo/market-intelligence-agents.git $dest; if ($LASTEXITCODE -ne 0) { throw 'Falha no git clone'; }; & (Join-Path $dest 'scripts/install-native.ps1') -ProjectPath (Get-Location).Path
-```
+> Instale os agentes e skills de https://github.com/Wilian-Toledo/market-intelligence-agents neste projeto. Primeiro localize a raiz e verifique conflitos. Faça `git clone` para uma pasta **fora da raiz do projeto** (ou utilize um ZIP previamente baixado e extraído). Copie o conteúdo de `plugins/market-intelligence/agents/` para `.claude/agents/`, e o conteúdo de `plugins/market-intelligence/skills/` para `.claude/skills/`, preservando todos os arquivos de cada pasta, inclusive `references/` e `scripts/`. Não use PowerShell. Nunca sobrescreva arquivos diferentes sem backup e aprovação. Preserve MCP, `.mcp.json`, `settings.json`, credenciais, relatórios e PBIX. Garanta `reports/` ignorado pelo Git. Não execute auditoria, commit nem push automaticamente.
 
-Ou clone/revise antes e execute manualmente:
+Reinicie a sessão do Claude Code se necessário. Execute `/mapear-modelo` ou `/validar-indicadores` após instalar. Consulte `docs/upgrade-v0.2.md` para atualização incremental.
 
-```powershell
-& 'C:\caminho\market-intelligence-agents\scripts\install-native.ps1' -ProjectPath (Get-Location).Path
-```
+## Alternativa ZIP
+No GitHub selecione **Code → Download ZIP**, extraia em uma pasta temporária acessível, e peça ao Claude Code para instalar conforme os caminhos acima. Não é necessário executar scripts.
 
-O instalador:
-1. Copia `model-cartographer.md` para `.claude/agents/`.
-2. Copia todas as skills do plugin para `.claude/skills/`.
-3. Preserva `.mcp.json`, `.claude/settings.json`, credenciais e PBIX.
-4. Verifica conflitos antes de copiar; não sobrescreve arquivos diferentes sem `-Force`. Com `-Force`, faz backup local.
-5. Acrescenta `/reports/powerbi-model-audit/` ao `.gitignore` existente, sem apagar regras anteriores.
+## Instalação opcional por script
+O repositório conserva `scripts/install-native.ps1` para ambientes com PowerShell **autorizado**, mas ele não é necessário nem recomendado onde o terminal é bloqueado.
 
-## Primeira execução
-Com PBIX aberto no Power BI Desktop e MCP operacional, abra ou reinicie Claude Code local e execute:
-
-```text
-/mapear-modelo
-```
-
-Ou peça: "Use a skill mapear-modelo e o agente model-cartographer para auditar, em leitura apenas, o PBIX aberto".
-
-Se estiver em um chat remoto sem acesso aos arquivos e ao terminal local, a instalação não os tornará visíveis nessa superfície. O primeiro teste deve ocorrer em uma sessão Claude Code com acesso ao projeto.
-
-## Política de dados
-Não faça push nem upload de inventários, DAX internos, outputs ou qualquer informação corporativa para o GitHub público. A auditoria permanece em `reports/powerbi-model-audit/` no projeto autorizado.
+## Segurança
+O MCP existente permanece intocado. Os relatórios de auditoria são gravados localmente em `reports/powerbi-model-audit/` e os contratos específicos em `reports/semantic-validation/`. Nunca publique esses arquivos.
