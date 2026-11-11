@@ -1,24 +1,24 @@
 # Instalação sem `/plugin` e sem PowerShell
 
-Esta é a via recomendada quando o Claude Code roda em Windows com políticas corporativas que bloqueiam PowerShell, mas permitem acesso aos arquivos do projeto.
+Use esta via no **Claude Code local** quando o ambiente corporativo permite acesso a arquivos mas bloqueia PowerShell ou o gerenciador de plugins.
 
-## Requisitos
-- Claude Code local com acesso à pasta do projeto.
-- Acesso ao GitHub pelo terminal **se permitido**; caso contrário, baixe o ZIP pelo navegador.
-- Permissão da organização para consumir este repositório público. Não exporte dados internos para o GitHub.
+## Se a v0.3 já existe
+Prefira o upgrade incremental em [upgrade-v1.0.md](upgrade-v1.0.md), que instala **somente quatro agentes e cinco skills novos**. Nenhum MCP ou relatório precisa ser alterado.
 
-## Instalação via Claude Code
-Abra o projeto no Claude Code e peça:
+## Instalação completa do zero (por prompt)
+1. Abra o projeto local autorizado no Claude Code.
+2. Envie:
 
-> Instale os agentes e skills de https://github.com/Wilian-Toledo/market-intelligence-agents neste projeto. Primeiro localize a raiz e verifique conflitos. Faça `git clone` para uma pasta **fora da raiz do projeto** (ou utilize um ZIP previamente baixado e extraído). Copie o conteúdo de `plugins/market-intelligence/agents/` para `.claude/agents/`, e o conteúdo de `plugins/market-intelligence/skills/` para `.claude/skills/`, preservando todos os arquivos de cada pasta, inclusive `references/` e `scripts/`. Não use PowerShell. Nunca sobrescreva arquivos diferentes sem backup e aprovação. Preserve MCP, `.mcp.json`, `settings.json`, credenciais, relatórios e PBIX. Garanta `reports/` ignorado pelo Git. Não execute auditoria, commit nem push automaticamente.
+> Instale os agentes e skills de https://github.com/Wilian-Toledo/market-intelligence-agents neste projeto. Confira a raiz. Use `git clone` para uma pasta temporária **fora do projeto** se permitido; caso contrário use um ZIP previamente baixado e extraído. Copie cada arquivo de `plugins/market-intelligence/agents/` para `.claude/agents/` e cada pasta inteira de `plugins/market-intelligence/skills/` para `.claude/skills/`, preservando `assets/`, `scripts/`, `references/` e `examples/`. Compare e preserve arquivos existentes; em conflitos, solicite confirmação antes de substituir. Não execute PowerShell nem instale dependências. Não altere PBIX, MCP, `.mcp.json`, settings, credenciais ou arquivos `reports/`. Confirme que `reports/` está ignorado no Git. Não faça commits, pushes nem execute o fluxo sem autorização. Resuma o que foi instalado.
 
-Reinicie a sessão do Claude Code se necessário. Execute `/mapear-modelo` ou `/validar-indicadores` após instalar. Consulte `docs/upgrade-v0.2.md` para atualização incremental.
+3. Inicie uma nova sessão local do Claude Code se necessário.
+4. Execute `/gerar-onepage` para a primeira OnePage. As skills individuais `/mapear-modelo`, `/validar-indicadores` e `/diagnosticar-desempenho` também permanecem.
 
 ## Alternativa ZIP
-No GitHub selecione **Code → Download ZIP**, extraia em uma pasta temporária acessível, e peça ao Claude Code para instalar conforme os caminhos acima. Não é necessário executar scripts.
-
-## Instalação opcional por script
-O repositório conserva `scripts/install-native.ps1` para ambientes com PowerShell **autorizado**, mas ele não é necessário nem recomendado onde o terminal é bloqueado.
+No GitHub use **Code → Download ZIP**. Extraia no Windows e dê ao Claude Code o caminho da pasta extraída. Não há necessidade de executar arquivos de script.
 
 ## Segurança
-O MCP existente permanece intocado. Os relatórios de auditoria são gravados localmente em `reports/powerbi-model-audit/` e os contratos específicos em `reports/semantic-validation/`. Nunca publique esses arquivos.
+Todo dado de projeto e análise ficam em `reports/` fora do Git. O repositório é público e não recebe PBIX, DAX, medidas proprietárias, credenciais nem valores internos.
+
+## Scripts opcionais
+Há verificadores Python e um instalador PowerShell legados para ambientes em que sejam permitidos; **não são requisitos** para gerar a OnePage e não devem ser usados para contornar bloqueios corporativos.
