@@ -1,21 +1,20 @@
-# Roadmap — entregas incrementais
+# Roadmap — Market Intelligence Agents
 
-| Etapa | Entrega | Estado |
-|---|---|---|
-| 0 | Organização do toolkit, instalação alternativa | Disponível |
-| 1 | Model Cartographer + auditoria Power BI | Disponível; usado pelo usuário no ambiente local |
-| 1.5 | Semantic Validator + catálogo de KPIs | Disponível; executado pelo usuário, sem validação de negócio confirmada |
-| 2 | **Market Diagnostician + performance-diagnostics** | **v0.3 publicada; aguardando teste local** |
-| 3 | Investigação de hipóteses e alternativas explicativas | Planejado |
-| 4 | Priorização por potencial, esforço, risco e economia | Planejado |
-| 5 | Revisão crítica e OnePage executiva por público | Planejado |
+| Etapa | Estado no GitHub |
+|---|---|
+| 1. Mapeamento semântico (`model-cartographer`) | Implementado |
+| 2. Contratos e validação (`semantic-validator`) | Implementado |
+| 3. Diagnóstico (`market-diagnostician`) | Implementado |
+| 4. Investigação (`hypothesis-investigator`) | Implementado v1.0 |
+| 5. Priorização condicional (`opportunity-strategist`) | Implementado v1.0 |
+| 6. Revisão crítica (`challenge-reviewer`) | Implementado v1.0 |
+| 7. Storytelling visual (`executive-storyteller`) | Implementado v1.0 |
+| 8. Orquestração integrada (`/gerar-onepage`) | Implementado v1.0 |
 
-## Gate do diagnóstico
-- Exigir catálogo local de KPIs com status e usos.
-- Indicadores `approved` podem sustentar conclusões dentro do escopo aprovado.
-- Indicadores `provisional` e `restricted` somente em **diagnóstico exploratório**, com limitações, recorte e evidência.
-- `rejected` e `blocked` ficam excluídos.
-- Não usar crescimento ou share como sinônimo de margem, retorno ou causalidade.
+**Status real:** MVP implementado no repositório e ainda sujeito a validação end-to-end em Claude Code + Power BI. Nem os KPIs locais nem o uso executivo estão aprovados por esse estado.
 
-## Reutilização
-O método é portátil; apenas os contratos e os arquivos de contexto locais mudam a cada projeto. Não colocar regras ou nomes proprietários nos agentes públicos.
+## Depois do MVP
+Ajustar narrativa, formatos, avaliações e projeções somente quando os dados e objetivos permitirem. Evitar reabrir etapas anteriores sem necessidade.
+
+## Regra de portabilidade
+O framework público nunca conhece nomes de organizações, tabelas, medidas, fórmulas proprietárias ou thresholds. Contratos, dicionários, perguntas de negócio, KPIs e relatórios ficam no projeto local e podem ser substituídos sem reescrever as skills.
