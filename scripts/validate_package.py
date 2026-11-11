@@ -12,15 +12,15 @@ for item in market["plugins"]:
     assert p.is_relative_to(ROOT.resolve()) and p.is_dir(), str(p)
     meta = json.loads((p / ".claude-plugin/plugin.json").read_text(encoding="utf-8"))
     assert meta["name"] == item["name"]
-    assert meta["version"] == "0.3.0", "Versão do plugin desatualizada"
+    assert meta["version"] == "1.0.0", "Versão do plugin desatualizada"
     agents = list((p / "agents").glob("*.md"))
     skills = list((p / "skills").glob("*/SKILL.md"))
-    assert len(agents) >= 2, "Esperados Model Cartographer e Market Diagnostician"
+    assert len(agents) >= 6, "Esperados seis agentes especialistas"
     assert skills, "Nenhuma skill"
     for file in agents + skills:
         assert file.read_text(encoding="utf-8").startswith("---"), file
     assert not (p / ".mcp.json").exists(), "MCP não deve ser incluído"
-    for skill_name in ("mapear-modelo", "powerbi-semantic-audit", "semantic-validator", "validar-indicadores", "diagnosticar-desempenho", "performance-diagnostics"):
+    for skill_name in ("mapear-modelo", "powerbi-semantic-audit", "semantic-validator", "validar-indicadores", "diagnosticar-desempenho", "performance-diagnostics", "hypothesis-analysis", "action-prioritization", "evidence-review", "executive-storytelling", "gerar-onepage"):
         assert (p / "skills" / skill_name / "SKILL.md").exists(), skill_name
     validator = p / "skills/semantic-validator"
     assert (validator / "references/kpi-contract.schema.json").exists()
@@ -30,10 +30,15 @@ for item in market["plugins"]:
     assert (diagnostician / "references/findings.schema.json").exists()
     assert (diagnostician / "scripts/check_findings.py").exists()
     assert (diagnostician / "examples/synthetic-findings.json").exists()
+    assert (p / "skills/executive-storytelling/assets/onepage-template.html").exists()
+    assert "{{HEADLINE}}" in (p / "skills/executive-storytelling/assets/onepage-template.html").read_text(encoding="utf-8")
+    assert (p / "skills/gerar-onepage/SKILL.md").exists()
+    for specialist in ("hypothesis-investigator", "opportunity-strategist", "challenge-reviewer", "executive-storyteller"):
+        assert (p / "agents" / (specialist + ".md")).exists(), specialist
     json.loads((diagnostician / "references/findings.schema.json").read_text(encoding="utf-8"))
     assert json.loads((diagnostician / "examples/synthetic-findings.json").read_text(encoding="utf-8"))["schema_version"] == "0.3"
     json.loads((validator / "references/kpi-contract.schema.json").read_text(encoding="utf-8"))
     assert json.loads((validator / "examples/synthetic-catalog.json").read_text(encoding="utf-8"))["schema_version"] == "0.2"
 json.loads((ROOT / "contracts/audit-summary.schema.json").read_text(encoding="utf-8"))
 assert (ROOT / "scripts/install-native.ps1").exists()
-print("OK: versão 0.3, marketplace, 2 agentes, 6 skills, contratos e exemplos sintéticos.")
+print("OK: v1.0, 6 agentes, 11 skills, HTML local, contratos e exemplos sintéticos.")
