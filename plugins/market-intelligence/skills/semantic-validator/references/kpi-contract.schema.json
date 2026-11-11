@@ -1,0 +1,287 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Semantic KPI Catalog v0.2 (local-only)",
+  "description": "Contrato genérico reutilizável. Arquivos preenchidos com metadados internos não devem ser enviados ao repositório público.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "analysis_question",
+    "model_reference",
+    "indicators"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.2"
+    },
+    "analysis_question": {
+      "type": "string",
+      "minLength": 1
+    },
+    "model_reference": {
+      "type": "string",
+      "minLength": 1
+    },
+    "indicators": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "name",
+          "status",
+          "technical_validation",
+          "business_validation",
+          "unit",
+          "scope",
+          "lineage",
+          "evidence",
+          "restrictions",
+          "blockers",
+          "allowed_uses"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._-]+$",
+            "minLength": 1
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "approved",
+              "provisional",
+              "restricted",
+              "rejected",
+              "blocked"
+            ]
+          },
+          "technical_validation": {
+            "type": "string",
+            "enum": [
+              "verified",
+              "failed",
+              "not_tested"
+            ]
+          },
+          "business_validation": {
+            "type": "string",
+            "enum": [
+              "confirmed",
+              "pending"
+            ]
+          },
+          "unit": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Unidade de medida: valor, %, pp, contagem, índice etc."
+          },
+          "scope": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "granularity",
+              "period",
+              "population",
+              "filters"
+            ],
+            "properties": {
+              "granularity": {
+                "type": "string",
+                "minLength": 1
+              },
+              "period": {
+                "type": "string",
+                "minLength": 1
+              },
+              "population": {
+                "type": "string",
+                "minLength": 1
+              },
+              "filters": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "lineage": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "Referências locais a medidas, consultas ou documentos de auditoria."
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "test",
+                "result",
+                "reference"
+              ],
+              "properties": {
+                "test": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "result": {
+                  "type": "string",
+                  "enum": [
+                    "passed",
+                    "failed",
+                    "not_run"
+                  ]
+                },
+                "reference": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "note": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "restrictions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "blockers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "allowed_uses": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "enum": [
+                "exploratory",
+                "executive"
+              ]
+            }
+          },
+          "comparison": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind"
+            ],
+            "properties": {
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "none",
+                  "yoy",
+                  "sequential"
+                ]
+              },
+              "current_start": {
+                "type": "string",
+                "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$"
+              },
+              "current_end": {
+                "type": "string",
+                "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$"
+              },
+              "reference_start": {
+                "type": "string",
+                "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$"
+              },
+              "reference_end": {
+                "type": "string",
+                "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$"
+              }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "kind": {
+                      "enum": [
+                        "yoy",
+                        "sequential"
+                      ]
+                    }
+                  }
+                },
+                "then": {
+                  "required": [
+                    "current_start",
+                    "current_end",
+                    "reference_start",
+                    "reference_end"
+                  ]
+                }
+              }
+            ]
+          },
+          "ratio_checks": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "period_alignment",
+              "unit_alignment",
+              "population_alignment",
+              "filter_isolation"
+            ],
+            "properties": {
+              "period_alignment": {
+                "type": "string",
+                "enum": [
+                  "passed",
+                  "failed",
+                  "unknown"
+                ]
+              },
+              "unit_alignment": {
+                "type": "string",
+                "enum": [
+                  "passed",
+                  "failed",
+                  "unknown"
+                ]
+              },
+              "population_alignment": {
+                "type": "string",
+                "enum": [
+                  "passed",
+                  "failed",
+                  "unknown"
+                ]
+              },
+              "filter_isolation": {
+                "type": "string",
+                "enum": [
+                  "passed",
+                  "failed",
+                  "unknown"
+                ]
+              }
+            }
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
