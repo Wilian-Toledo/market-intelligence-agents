@@ -1,0 +1,26 @@
+# Nunca versionar artefatos internos, dados ou credenciais
+*.pbix
+*.pbit
+*.pbip
+*.pbi
+*.parquet
+*.xlsx
+*.xls
+*.csv
+*.sqlite
+*.db
+reports/
+output/
+exports/
+local-data/
+.env
+.env.*
+*.pem
+*.key
+*.pfx
+*.p12
+# Temporarios
+__pycache__/
+.pytest_cache/
+.venv/
+.DS_Store
