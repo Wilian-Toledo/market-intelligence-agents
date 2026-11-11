@@ -1,8 +1,8 @@
 {
   "name": "market-intelligence",
   "displayName": "Market Intelligence Agents",
-  "version": "0.3.0",
-  "description": "Toolkit reutilizável: mapeamento, validação semântica e diagnóstico exploratório orientado por KPIs confiáveis.",
+  "version": "1.0.0",
+  "description": "MVP modular e reutilizável para auditoria, diagnóstico, hipóteses, priorização, revisão crítica e OnePage estática em Claude Code.",
   "author": {
     "name": "Market Intelligence Team"
   },
@@ -11,6 +11,7 @@
     "market-intelligence",
     "kpi-validation",
     "performance-diagnostics",
-    "power-bi"
+    "storytelling",
+    "onepage"
   ]
 }
