@@ -1,0 +1,28 @@
+{
+  "schema_version": "0.3",
+  "mode": "exploratory",
+  "analysis_question": "Qual mudança de crescimento ocorreu em janelas comparáveis (dados fictícios)?",
+  "catalog_path": "../semantic-validator/examples/synthetic-catalog.json",
+  "findings": [
+    {
+      "id": "finding-01",
+      "headline": "O indicador de crescimento mudou na janela observada (exemplo sintético; sem valores reais).",
+      "finding_type": "observation",
+      "confidence": "preliminary",
+      "kpi_ids": [
+        "metric-growth-yoy"
+      ],
+      "evidence_refs": [
+        "exemplo-local/teste-01"
+      ],
+      "period": "2026-04 a 2026-06 versus 2025-04 a 2025-06",
+      "segment": "amostra fictícia",
+      "limitations": [
+        "Definição de negócio ainda não confirmada"
+      ],
+      "next_check": "Confirmar significado do indicador com responsável",
+      "restricted_conditions_verified": false,
+      "restriction_evidence_refs": []
+    }
+  ]
+}
