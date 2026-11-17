@@ -1,20 +1,20 @@
 # Roadmap — Market Intelligence Agents
 
-| Etapa | Estado no GitHub |
+| Etapa | Estado |
 |---|---|
-| 1. Mapeamento semântico (`model-cartographer`) | Implementado |
-| 2. Contratos e validação (`semantic-validator`) | Implementado |
-| 3. Diagnóstico (`market-diagnostician`) | Implementado |
-| 4. Investigação (`hypothesis-investigator`) | Implementado v1.0 |
-| 5. Priorização condicional (`opportunity-strategist`) | Implementado v1.0 |
-| 6. Revisão crítica (`challenge-reviewer`) | Implementado v1.0 |
-| 7. Storytelling visual (`executive-storyteller`) | Implementado v1.0 |
-| 8. Orquestração integrada (`/gerar-onepage`) | Implementado v1.0 |
+| Mapeamento semântico (Model Cartographer) | Implementado |
+| Validação de indicadores (Semantic Validator) | Implementado |
+| Diagnóstico de desempenho (Market Diagnostician) | Implementado |
+| Investigação de hipóteses | Implementado |
+| Priorização comercial condicional | Atualizado na v1.1 |
+| Revisão crítica e storytelling | Atualizados na v1.1 |
+| Orquestração única `/gerar-onepage` | Atualizada na v1.1 |
+| **OnePage HTML para notebook** | **Template publicado; aguarda teste local** |
 
-**Status real:** MVP implementado no repositório e ainda sujeito a validação end-to-end em Claude Code + Power BI. Nem os KPIs locais nem o uso executivo estão aprovados por esse estado.
+O MVP completo está implementado. A prioridade é **melhorar a qualidade da decisão e do material final**, não acrescentar mais agentes. O próximo feedback deve ser sobre a nova OnePage local.
 
-## Depois do MVP
-Ajustar narrativa, formatos, avaliações e projeções somente quando os dados e objetivos permitirem. Evitar reabrir etapas anteriores sem necessidade.
+## Gate de confiabilidade
+Com KPIs provisórios, a OnePage é exploratória. Não se recomenda investimento sem risco e margem verificados. Manter o foco em identificar movimentos comerciais, hipóteses testáveis e próximos passos reversíveis.
 
-## Regra de portabilidade
-O framework público nunca conhece nomes de organizações, tabelas, medidas, fórmulas proprietárias ou thresholds. Contratos, dicionários, perguntas de negócio, KPIs e relatórios ficam no projeto local e podem ser substituídos sem reescrever as skills.
+## Portabilidade
+Todos os especialistas permanecem genéricos. O usuário mantém seus indicadores, regras e evidências dentro do projeto local autorizado; mudanças em regras geram revalidação dos contratos afetados, não uma reconstrução das skills.
