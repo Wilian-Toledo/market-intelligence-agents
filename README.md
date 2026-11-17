@@ -1,63 +1,44 @@
 # Market Intelligence Agents
 
-**MVP completo v1.0.0 — Claude Code.** Toolkit de especialistas reutilizáveis para transformar dados analíticos em diagnóstico, hipóteses, prioridades, revisão crítica e uma OnePage visual.
+**MVP v1.1 — OnePage executiva para notebook.** Toolkit de agentes e skills reutilizáveis para transformar dados analíticos em **diagnóstico, hipóteses e direcionamento**.
 
-> O método é genérico. Cada projeto mantém **seus próprios KPIs, dimensões, objetivos, evidências e regras de negócio localmente**. Nenhum contexto corporativo entra neste GitHub público.
+O método é genérico. **KPIs, filtros, modelos, objetivos e definições locais pertencem ao projeto autorizado**, não a este repositório público.
 
-## Uma instalação → um comando
-
-Se você já instalou a v0.3, siga [docs/upgrade-v1.0.md](docs/upgrade-v1.0.md) para instalar **somente os módulos novos** por clone ou ZIP, sem PowerShell.
-
-Depois, em uma sessão local do Claude Code:
-
+## Principal comando
 ```text
 /gerar-onepage
 ```
 
-Opcionalmente passe uma pergunta:
+Sem pergunta informada, o orquestrador procura: "Onde a entidade ganha/perde espaço versus mercado ou referência, o que pode explicar e onde concentrar atenção comercial?" Se o modelo não sustenta share, usa desvios comparáveis sem inventar participação.
 
-```text
-/gerar-onepage Onde estão os principais desvios de crescimento, quais hipóteses testar e o que priorizar?
-```
+## O que mudou na v1.1
+- **Executive Storyteller**: título comercial, até 3 KPIs e insights, 1 comparativo visual legítimo, prioridades e perspectivas para direção, gerência e coordenação.
+- **Opportunity Strategist**: primeiro identifica movimentos de negócio *exploratórios*, depois destaca validações que realmente bloqueiam decisões. Não inventa rentabilidade nem ROI.
+- **Challenge Reviewer**: critica evidências e se a OnePage é legível e útil para gestão.
+- **Orquestrador**: reusa auditoria/contratos/diagnóstico locais, sem repetir etapas nem pedir que execute diversos comandos.
+- **Template HTML**: screen-first para notebooks 1366×768 e 1920×1080, responsivo, sem dependências externas; rolagem vertical curta aceita. Não é uma folha A4.
 
-O orquestrador reusa auditoria, contratos e diagnóstico local **sem recalcular tudo**; se alguma etapa estiver faltando, tenta executá-la na mesma chamada. Trabalha em leitura apenas, sem modificar PBIX ou MCP.
+## Atualizar sem PowerShell
+Use [docs/upgrade-v1.1.md](docs/upgrade-v1.1.md). No Claude Code, clone/revise via Git (se autorizado) ou use ZIP, copiando **somente arquivos alterados** para `.claude/`. Preserve PBIX, MCP, settings, contratos e relatórios locais.
 
-## Especialistas disponíveis
+## Componentes atuais
+- `model-cartographer`: inventário semântico via MCP.
+- `semantic-validator`: contratos e status dos KPIs.
+- `market-diagnostician`: diagnóstico quantitativo.
+- `hypothesis-investigator`: hipóteses concorrentes.
+- `opportunity-strategist`: prioridades condicionais.
+- `challenge-reviewer`: crítica da evidência/narrativa.
+- `executive-storyteller`: HTML visual.
 
-| Módulo | Responsabilidade |
-|---|---|
-| `model-cartographer` | Mapa semântico e auditoria |
-| `semantic-validator` (skill) | Contratos de KPIs e estados de uso |
-| `market-diagnostician` | Diagnóstico quantitativo |
-| `hypothesis-investigator` | Explicações concorrentes e testes |
-| `opportunity-strategist` | Priorização condicional por benefício, esforço e risco |
-| `challenge-reviewer` | Revisão crítica e bloqueio de afirmações frágeis |
-| `executive-storyteller` | Narrativa e OnePage para níveis gerenciais |
+**Comandos individuais**: `/mapear-modelo`, `/validar-indicadores`, `/diagnosticar-desempenho`. **Comando integrado**: `/gerar-onepage`.
 
-**Comando principal:** `/gerar-onepage`, que coordena esses módulos. As skills antigas permanecem utilizáveis individualmente.
+## Saída principal
+`reports/market-intelligence/onepage.html` e `onepage.md` **locais**. A trilha de evidências fica no mesmo diretório ignorado pelo Git.
 
-## Saídas do MVP (somente local)
-```text
-reports/market-intelligence/
-  01-diagnostico-base.md
-  02-hipoteses.md
-  03-prioridades.md
-  04-revisao-critica.md
-  05-manifesto.md
-  onepage.md
-  onepage.html
-```
+## Controles
+- Dados internos, PBIX, DAX, valores e credenciais **não são publicados** neste GitHub.
+- KPI reprovado/bloqueado não fundamenta achado; KPI restrito só no recorte permitido; provisório exige ressalva.
+- Sem confirmação do negócio, sinalizar **EXPLORATÓRIO — NÃO VALIDADO PARA DECISÃO EXECUTIVA**. Ações comerciais são investigações/experimentos reversíveis, não decisões definitivas de orçamento.
+- Não altera medidas, PBIX, fontes, MCP, RLS ou refresh; não exige PowerShell nem Python.
 
-Abra `onepage.html` localmente no navegador para visualizar e, se permitido, imprimir como PDF. O template é responsivo, HTML/CSS estático, sem bibliotecas ou imagens externas.
-
-## Limites de confiança
-- Sem definições de negócio confirmadas, qualquer OnePage permanece marcada como **EXPLORATÓRIA — NÃO VALIDADA PARA DECISÃO EXECUTIVA**.
-- Indicadores reprovados ou bloqueados são excluídos; indicadores restritos exigem recorte comprovadamente compatível.
-- Hipóteses são **hipóteses**, não causas comprovadas. Não inventamos ROI, margem, potencial financeiro, sinistralidade comparável nem projeções.
-- A prioridade inicial pode ser **investigar/validar/experimentar**, em vez de recomendar investimento.
-- Nunca publicamos dados, PBIX, DAX interno, credenciais ou relatórios no GitHub público.
-
-## Segurança / implantação
-Use somente ambiente e fontes autorizados pela organização. O toolkit não altera medidas, PBIX, RLS, refresh, modelo, credenciais, configurações ou MCP. Não executa PowerShell por padrão. Não exige Python: verificadores automáticos são opcionais.
-
-**Estado:** os arquivos são versionados e podem ser revisados publicamente. A integração completa no Claude Code + Power BI do usuário ainda precisa de teste local.
+**Status:** conteúdo da v1.1 publicado e inspecionável. A nova apresentação HTML deve ser testada localmente no Claude Code antes de uso gerencial.
