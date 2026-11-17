@@ -2,65 +2,118 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
 <title>{{DOCUMENT_TITLE}}</title>
 <style>
-:root{--ink:#172b40;--muted:#53677b;--line:#dae3eb;--bg:#f4f7fa;--panel:#fff;--accent:#176f89;--pale:#eaf3f6;--warn:#8d4c15}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--ink);font-size:11px;line-height:1.35}
-.sheet{max-width:1120px;margin:18px auto;background:var(--panel);padding:24px 28px;border:1px solid var(--line);box-shadow:0 8px 32px #172b4010}
-.top{display:flex;justify-content:space-between;align-items:flex-start;gap:18px}.eyebrow{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:bold}
-h1{font-size:23px;line-height:1.18;letter-spacing:-.02em;margin:8px 0 6px;font-weight:700;max-width:780px}
-.subtitle{color:var(--muted);font-size:11px;margin:0}
-.flag{display:inline-block;border:1px solid #d8a780;background:#fff5ed;color:var(--warn);padding:7px 9px;border-radius:5px;font-size:9px;letter-spacing:.03em;font-weight:bold;text-align:center;max-width:220px}
-.rule{height:2px;background:var(--accent);margin:16px 0}
-.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.kpi{background:var(--bg);border:1px solid var(--line);padding:12px;min-height:75px;border-radius:6px}.kpi .value{font-size:22px;line-height:1;font-weight:700;margin:4px 0}.kpi .name{color:var(--muted);font-size:10px}.kpi .foot{color:var(--muted);font-size:9px}
-.main{display:grid;grid-template-columns:1.25fr 1fr;gap:12px;margin-top:12px}.panel{border:1px solid var(--line);border-radius:6px;padding:12px;min-width:0}h2{font-size:11px;letter-spacing:.07em;text-transform:uppercase;margin:0 0 10px;color:var(--accent)}
-ul{margin:0;padding-left:18px}li{margin:0 0 8px}li:last-child{margin-bottom:0}.muted{color:var(--muted)}.tag{font-size:9px;font-weight:bold;display:inline-block;color:var(--accent);background:var(--pale);border-radius:4px;padding:3px 5px;margin-right:6px}
-.bottom{display:grid;grid-template-columns:1.25fr 1fr;gap:12px;margin-top:12px}.action{padding:7px 0;border-bottom:1px solid var(--line)}.action:last-child{border-bottom:none;padding-bottom:0}
-.perspective{display:grid;grid-template-columns:1fr;gap:6px}.perspective div{border-left:2px solid var(--accent);padding-left:8px}
-footer{border-top:1px solid var(--line);margin-top:14px;padding-top:8px;color:var(--muted);font-size:9px;display:flex;justify-content:space-between;gap:14px}
-@page{size:A4 landscape;margin:9mm}
-@media print{body{background:white}.sheet{width:100%;max-width:none;margin:0;padding:0;border:0;box-shadow:none}html{-webkit-print-color-adjust:exact;print-color-adjust:exact}h1{font-size:21px}.panel,.kpi{break-inside:avoid}footer{margin-top:9px}}
-@media (max-width:720px){.sheet{margin:0;padding:18px;border:0}.top{display:block}.flag{margin-top:8px;max-width:none}.kpis{grid-template-columns:1fr}.main,.bottom{grid-template-columns:1fr}h1{font-size:20px}footer{display:block}}
+:root{--ink:#183047;--muted:#536777;--line:#dce6ed;--bg:#f2f6f9;--surface:#fff;--accent:#176c88;--soft:#eaf3f7;--caution:#93611d;--caution-bg:#fff6e8;--good:#167454;--bad:#b04447}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,"Segoe UI",Arial,Helvetica,sans-serif;font-size:15px;line-height:1.45}
+.wrap{max-width:1440px;margin:auto;padding:24px 32px 36px}
+.header{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:4px 0 18px;border-bottom:1px solid var(--line)}
+.eyebrow{letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-size:12px;font-weight:750}
+h1{font-size:clamp(25px,2.45vw,34px);line-height:1.14;letter-spacing:-.022em;margin:8px 0 9px;max-width:960px}
+.lede{margin:0;color:var(--muted);font-size:15px;max-width:950px}
+.status{flex:0 0 218px;font-size:12px;line-height:1.3;color:var(--caution);background:var(--caution-bg);padding:11px 13px;border:1px solid #efd6b2;border-radius:9px;font-weight:700;text-align:center}
+.status strong{display:block}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0}
+.kpi{padding:17px 19px;background:var(--surface);border:1px solid var(--line);border-radius:12px;min-height:118px}
+.kpi__label{font-size:13px;color:var(--muted);font-weight:650}.kpi__value{font-size:clamp(26px,2.3vw,34px);line-height:1.1;font-weight:750;letter-spacing:-.02em;margin:9px 0 5px;font-variant-numeric:tabular-nums}
+.kpi__context{color:var(--muted);font-size:12px;line-height:1.3}
+.main{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(350px,.9fr);gap:14px;align-items:stretch}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:19px 21px;min-width:0}
+.panel h2{font-size:15px;margin:0 0 13px;font-weight:750;letter-spacing:-.008em}
+.panel__sub{color:var(--muted);font-size:13px;margin:-6px 0 12px}
+.visual{background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:15px;min-height:120px;margin-bottom:14px}
+.visual__title{font-size:13px;font-weight:700;margin:0 0 10px}
+.visual svg{display:block;max-width:100%;height:auto}.visual__note{font-size:12px;color:var(--muted);margin:9px 0 0}
+.insights{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+.insight{padding-left:12px;border-left:3px solid var(--accent);font-size:15px}
+.insight b{display:block;font-weight:750;margin-bottom:3px}.insight small{display:block;font-size:12px;color:var(--muted);margin-top:4px}
+.probes{list-style:none;padding:0;margin:0;display:grid;gap:12px}.probe{border-bottom:1px solid var(--line);padding-bottom:11px}.probe:last-child{border:0;padding-bottom:0}
+.probe-label{font-size:11px;font-weight:750;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+.probe p{margin:3px 0 0;font-size:14px}.probe .test{font-size:12px;color:var(--muted)}
+.actions{margin-top:14px}
+.priority-list{display:grid;gap:9px}.priority{display:grid;grid-template-columns:minmax(0,1fr) minmax(210px,.6fr);gap:20px;padding:11px 0;border-top:1px solid var(--line);align-items:start}
+.priority:first-child{border-top:0;padding-top:3px}
+.priority h3{font-size:15px;margin:0 0 3px}.priority p{margin:0;color:var(--muted);font-size:13px}
+.priority__meta{color:var(--ink);font-size:13px}.priority__meta strong{font-weight:700}
+.section-note{font-size:12px;color:var(--muted);margin-top:8px}
+.lenses{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+.lens{font-size:13px;background:var(--soft);border-radius:9px;padding:13px 15px}.lens strong{display:block;margin-bottom:3px;color:var(--accent);font-size:13px}
+details{margin-top:12px;background:transparent;border-top:1px solid var(--line);padding:12px 0;color:var(--muted);font-size:12px}summary{cursor:pointer;font-weight:650;color:var(--ink);font-size:13px}
+footer{display:flex;justify-content:space-between;gap:18px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:13px}
+@media(max-width:1030px){.wrap{padding:20px}.main{grid-template-columns:1fr 1fr}.priority{grid-template-columns:1fr}.status{flex-basis:175px}}
+@media(max-width:790px){.header{display:block}.status{display:inline-block;text-align:left;margin-top:12px}.main{grid-template-columns:1fr}.lenses{grid-template-columns:1fr}.wrap{padding:14px}.kpis{gap:8px}.kpi{padding:12px}.kpi__context{font-size:11px}}
+@media(max-width:560px){.kpis{grid-template-columns:1fr}.kpi{min-height:auto}.panel{padding:16px}.priority{grid-template-columns:1fr}footer{display:block}}
+@media print{body{background:#fff}.wrap{max-width:none;padding:4mm 5mm}.panel,.kpi,.lens{break-inside:avoid}.kpis{margin:8px 0}.header{padding-bottom:8px}.status{color:#93611d}details:not([open]){display:none}}
 </style>
 </head>
 <body>
-<main class="sheet">
-<header class="top">
-  <div><div class="eyebrow">INTELIGÊNCIA DE DESEMPENHO · ONEPAGE</div>
-    <h1>{{HEADLINE}}</h1><p class="subtitle">{{QUESTION_AND_SCOPE}}</p>
-  </div><div class="flag">{{CONFIDENCE_LABEL}}</div>
-</header>
-<div class="rule"></div>
-<section class="kpis">
-  <div class="kpi"><div class="name">{{KPI_1_LABEL}}</div><div class="value">{{KPI_1_VALUE}}</div><div class="foot">{{KPI_1_CONTEXT}}</div></div>
-  <div class="kpi"><div class="name">{{KPI_2_LABEL}}</div><div class="value">{{KPI_2_VALUE}}</div><div class="foot">{{KPI_2_CONTEXT}}</div></div>
-  <div class="kpi"><div class="name">{{KPI_3_LABEL}}</div><div class="value">{{KPI_3_VALUE}}</div><div class="foot">{{KPI_3_CONTEXT}}</div></div>
-</section>
-<section class="main">
-  <div class="panel"><h2>Diagnóstico | O que observamos</h2><ul>
-    <li>{{FINDING_1}}</li><li>{{FINDING_2}}</li><li>{{FINDING_3}}</li>
-  </ul></div>
-  <div class="panel"><h2>Hipóteses | O que verificar</h2><ul>
-    <li><span class="tag">HIPÓTESE</span>{{HYPOTHESIS_1}}</li>
-    <li><span class="tag">HIPÓTESE</span>{{HYPOTHESIS_2}}</li>
-  </ul><p class="muted">{{MISSING_EVIDENCE}}</p></div>
-</section>
-<section class="bottom">
-  <div class="panel"><h2>Direcionamento | Próximas ações</h2>
-    <div class="action"><b>1.</b> {{ACTION_1}}</div>
-    <div class="action"><b>2.</b> {{ACTION_2}}</div>
-    <div class="action"><b>3.</b> {{ACTION_3}}</div>
-  </div>
-  <div class="panel"><h2>Implicações por nível</h2>
-    <div class="perspective">
-      <div><b>Diretoria</b> · {{EXECUTIVE_LENS}}</div>
-      <div><b>Gerência</b> · {{MANAGER_LENS}}</div>
-      <div><b>Coordenação</b> · {{OPERATIONS_LENS}}</div>
+<main class="wrap">
+  <header class="header">
+    <div>
+      <div class="eyebrow">INTELIGÊNCIA DE MERCADO · VISÃO EXECUTIVA</div>
+      <h1>{{HEADLINE}}</h1>
+      <p class="lede">{{EXECUTIVE_TENSION_AND_SCOPE}}</p>
     </div>
-  </div>
-</section>
-<footer><div>{{SOURCE_PERIOD_LIMITS}}</div><div>{{CONFIDENTIALITY_FOOTNOTE}}</div></footer>
+    <div class="status" role="note"><strong>{{CONFIDENCE_LABEL}}</strong>{{CONFIDENCE_DETAIL}}</div>
+  </header>
+
+  <section class="kpis" aria-label="Indicadores centrais">
+    <article class="kpi"><div class="kpi__label">{{KPI_1_LABEL}}</div><div class="kpi__value">{{KPI_1_VALUE}}</div><div class="kpi__context">{{KPI_1_CONTEXT}}</div></article>
+    <article class="kpi"><div class="kpi__label">{{KPI_2_LABEL}}</div><div class="kpi__value">{{KPI_2_VALUE}}</div><div class="kpi__context">{{KPI_2_CONTEXT}}</div></article>
+    <article class="kpi"><div class="kpi__label">{{KPI_3_LABEL}}</div><div class="kpi__value">{{KPI_3_VALUE}}</div><div class="kpi__context">{{KPI_3_CONTEXT}}</div></article>
+  </section>
+
+  <section class="main">
+    <article class="panel">
+      <h2>Onde o desempenho mudou</h2>
+      <div class="visual" aria-label="Comparativo de desempenho">
+        <div class="visual__title">{{CHART_TITLE}}</div>
+        <!-- Inserir aqui somente SVG/HTML acessível gerado a partir de números comprováveis, OU mensagem curta de indisponibilidade. Nenhuma série fictícia. -->
+        {{COMPARISON_VISUAL_HTML}}
+        <p class="visual__note">{{CHART_CONTEXT}}</p>
+      </div>
+      <ul class="insights">
+        <li class="insight">{{INSIGHT_1}}</li>
+        <li class="insight">{{INSIGHT_2}}</li>
+        <li class="insight">{{INSIGHT_3}}</li>
+      </ul>
+    </article>
+    <article class="panel">
+      <h2>O que pode explicar</h2>
+      <p class="panel__sub">Hipóteses, não causas confirmadas</p>
+      <ul class="probes">
+        <li class="probe"><span class="probe-label">Hipótese 01</span><p>{{HYPOTHESIS_1}}</p><p class="test">{{HYPOTHESIS_1_TEST}}</p></li>
+        <li class="probe"><span class="probe-label">Hipótese 02</span><p>{{HYPOTHESIS_2}}</p><p class="test">{{HYPOTHESIS_2_TEST}}</p></li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="panel actions" aria-label="Prioridades de ação">
+    <h2>O que fazer a seguir</h2>
+    <div class="priority-list">
+      <div class="priority"><div><h3>{{ACTION_1_TITLE}}</h3><p>{{ACTION_1_WHY}}</p></div><div class="priority__meta">{{ACTION_1_OWNER_AND_MEASURE}}</div></div>
+      <div class="priority"><div><h3>{{ACTION_2_TITLE}}</h3><p>{{ACTION_2_WHY}}</p></div><div class="priority__meta">{{ACTION_2_OWNER_AND_MEASURE}}</div></div>
+      <div class="priority"><div><h3>{{ACTION_3_TITLE}}</h3><p>{{ACTION_3_WHY}}</p></div><div class="priority__meta">{{ACTION_3_OWNER_AND_MEASURE}}</div></div>
+    </div>
+    <div class="section-note">{{ACTION_GUARDRAIL}}</div>
+  </section>
+
+  <section class="lenses" aria-label="Implicações gerenciais">
+    <div class="lens"><strong>Diretoria</strong>{{DIRECTOR_LENS}}</div>
+    <div class="lens"><strong>Gerência</strong>{{MANAGER_LENS}}</div>
+    <div class="lens"><strong>Coordenação</strong>{{COORDINATOR_LENS}}</div>
+  </section>
+
+  <details>
+    <summary>Fonte, períodos, limitações e evidências</summary>
+    <p>{{METHODOLOGY_AND_SOURCES}}</p>
+  </details>
+  <footer>
+    <span>{{SOURCE_AND_PERIOD_SHORT}}</span>
+    <span>{{STATUS_AND_CONFIDENTIALITY_SHORT}}</span>
+  </footer>
 </main>
 </body>
 </html>
