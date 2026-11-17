@@ -12,7 +12,7 @@ for item in market["plugins"]:
     assert p.is_relative_to(ROOT.resolve()) and p.is_dir(), str(p)
     meta = json.loads((p / ".claude-plugin/plugin.json").read_text(encoding="utf-8"))
     assert meta["name"] == item["name"]
-    assert meta["version"] == "1.0.0", "Versão do plugin desatualizada"
+    assert meta["version"] == "1.1.0", "Versão do plugin desatualizada"
     agents = list((p / "agents").glob("*.md"))
     skills = list((p / "skills").glob("*/SKILL.md"))
     assert len(agents) >= 6, "Esperados seis agentes especialistas"
@@ -31,7 +31,14 @@ for item in market["plugins"]:
     assert (diagnostician / "scripts/check_findings.py").exists()
     assert (diagnostician / "examples/synthetic-findings.json").exists()
     assert (p / "skills/executive-storytelling/assets/onepage-template.html").exists()
-    assert "{{HEADLINE}}" in (p / "skills/executive-storytelling/assets/onepage-template.html").read_text(encoding="utf-8")
+    template = (p / "skills/executive-storytelling/assets/onepage-template.html").read_text(encoding="utf-8")
+    assert "{{HEADLINE}}" in template
+    assert "max-width:1440px" in template
+    assert "<details>" in template
+    assert "{{COMPARISON_VISUAL_HTML}}" in template
+    assert "@media(max-width:" in template
+    assert "A4 landscape" not in template
+    assert (ROOT / "docs/upgrade-v1.1.md").exists()
     assert (p / "skills/gerar-onepage/SKILL.md").exists()
     for specialist in ("hypothesis-investigator", "opportunity-strategist", "challenge-reviewer", "executive-storyteller"):
         assert (p / "agents" / (specialist + ".md")).exists(), specialist
@@ -41,4 +48,4 @@ for item in market["plugins"]:
     assert json.loads((validator / "examples/synthetic-catalog.json").read_text(encoding="utf-8"))["schema_version"] == "0.2"
 json.loads((ROOT / "contracts/audit-summary.schema.json").read_text(encoding="utf-8"))
 assert (ROOT / "scripts/install-native.ps1").exists()
-print("OK: v1.0, 6 agentes, 11 skills, HTML local, contratos e exemplos sintéticos.")
+print("OK: v1.1, 6 agentes, 11 skills, OnePage notebook, contratos e exemplos sintéticos.")
